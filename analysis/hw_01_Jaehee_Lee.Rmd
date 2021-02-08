@@ -142,6 +142,32 @@ The median of institution level 1 is the highest among three of the institution 
 - Use a log scale as appropriate.
 - Add a loess smoother. 
 - Describe and interpret the relationship, if any, in each of the plots.
+```{r}
+# Plot the mean earnings 10 years after enrollment for Level 1 institutions as the Y-axis against PCT_WHITE Plot 1:
+cs %>% 
+  filter(ICLEVEL == 1) %>%  
+  ggplot(aes(y = MN_EARN_WNE_P10, x = PCT_WHITE)) +
+  geom_point()+
+    geom_smooth(method = "loess",color='black') +
+  labs(y ="mean earnings level 1", x = "PCT_WHITE")+
+ scale_y_log10()+
+  theme_classic()
+
+# Plot the mean earnings 10 years after enrollment for Level 1 institutions as the Y-axis against FEMALE Plot 2:
+cs %>% 
+  filter(ICLEVEL == 1) %>%  
+ggplot(aes(y= MN_EARN_WNE_P10, x = FEMALE)) +
+  geom_point() +
+    geom_smooth(method = "loess",color='black') +
+  labs(y = "mean earnings level 1", x = "FEMALE")+
+ scale_y_log10()+
+  theme_classic() 
+```
+Interpretation: 
+Plot 1) For level 1 institution, when PCT_WHITE is around 75~90, the mean earnings are around 30000~50000. Most of the dots are highly densed in this range. Also, the loess line shows that when PCT_WHITE increases until 75, meaning earnings also increases, however, after PCT_WHITE is 75, the loess line slightly decreases. 
+
+Plot 2) For level 1 institution, the most of the dots are densed around when FEMALE students are around 0.50 ~0.75. When x-axis FEMALE is around 0.50~0.75, then mean earnings are around 50000. This indicates that when the university is 4-year institution with 'Share of Female students' 0.50~0.75, then the mean earnings 10 years after is around 50000. Furthermore, the loess line is almost horizontal to the x-axis, which indicates that regardless of the 'Share of Female students' value, mean of earnings after 10 years will be around 50000. 
+
 
 7. Create a scatter plot of the mean earnings 10 years after enrollment (Y) axis) compared to the median earnings 10 years after enrollment (X axis) using log scales for both.  
   + Add an abline. 
