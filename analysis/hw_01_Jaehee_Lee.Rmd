@@ -186,10 +186,57 @@ Interpretation: Above graph shows that MD_EARN_WNE_P10 and MN_EARN_WNE_P10 are l
 8. Compute a ranking of level 1 universities based on the ratio of mean earnings 10 years after enrollment compared to median graduation debt.   
   + Identify the top 5 best (highest ROI should be #1 ) and the bottom 5 worst? 
   + What is American University's rank and ROI? 
+```{r}
+cs %>% 
+  filter(ICLEVEL == 1) -> cs_1
+# RATIO
+cs_1$RATIO <- cs_1$MN_EARN_WNE_P10/cs_1$GRAD_DEBT_MDN
+# Top 5 best
+cs_1 %>% 
+  arrange(desc(RATIO)) %>% 
+  top_n(5) %>%  
+  select(INSTNM, RATIO) -> ratio_top_5
+# Bottom 5 worst
+cs_1 %>% 
+  arrange(RATIO) %>% 
+  head(5) %>%  
+    select(INSTNM, RATIO) -> ration_bottom_5
+# What is American University's ROI? 
+cs_1 %>% 
+  filter(INSTNM == "American University") %>%  
+  select(RATIO) -> AU_ROI
+# What is American University's Rank? 
+cs_1 %>% 
+  arrange(desc(RATIO)) %>%
+  mutate(rank = row_number()) %>%  
+  filter(INSTNM == "American University") %>% 
+  select("rank") -> AU_RANK
+```
+
 - Extra Credit: 
   + Reproduce the following plot so the *AU line automatically adjusts as the new data is entered*:
   + What is AU's new ranking and ROI if the median earnings are used?
-    
+```{r}
+ggplot(cs_1, aes(x=RATIO)) +
+  geom_histogram(binwidth = 0.26)+
+    theme_bw()+
+  ggtitle("Ratio of Mean Earnings 10 Years after Enrollment to Median Debt at Graduation")+
+    geom_vline(aes(xintercept = 2.907077, color = "dark red")) 
+
+# What is AU's new ranking and ROI if the median earnings are used?
+cs_1$RATIO_MD <- cs_1$MD_EARN_WNE_P10/cs_1$GRAD_DEBT_MDN
+# What is American University's ROI_MD? 
+cs_1 %>% 
+  filter(INSTNM == "American University") %>%  
+  select(RATIO_MD) -> AU_ROI_MD
+# What is American University's Rank_MD? 
+cs_1 %>% 
+  arrange(desc(RATIO_MD)) %>%
+  mutate(rank = row_number()) %>%  
+  filter(INSTNM == "American University") %>% 
+  select("rank") -> AU_RANK_MD
+```
+
 # World Bank Data
 
 The World Bank provides loans to countries with the goal of reducing poverty. The dataframes in the data folder were taken from the public data repositories of the World Bank.
