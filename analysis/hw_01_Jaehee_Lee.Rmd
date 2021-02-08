@@ -95,7 +95,23 @@ Answer: MN_EARN_WNE_P10, MD_EARN_WNE_P10, SAT_AVG, ADM_RATE, UGDS, COSTT4_A, AVG
 Answer: They were read in as type character because the numbers are inside Quotation(" "). For example, 7 and "7" are different type. I think computer will think 7 is numeric, however "7" will be recognized as character, since 7 is inside the quotation.
 
 3. Use a readr function to fix these variables to be numeric and save the updated tibble.
-    
+```{r}
+cs$MN_EARN_WNE_P10 <- readr::parse_number(cs$MN_EARN_WNE_P10)
+cs$MD_EARN_WNE_P10 <- readr::parse_number(cs$MD_EARN_WNE_P10)
+cs$SAT_AVG <- readr::parse_number(cs$SAT_AVG)
+cs$ADM_RATE <- readr::parse_number(cs$ADM_RATE)
+cs$UGDS <- readr::parse_number(cs$UGDS)
+cs$COSTT4_A <- readr::parse_number(cs$COSTT4_A)
+cs$AVGFACSAL <- readr::parse_number(cs$AVGFACSAL)
+cs$GRAD_DEBT_MDN <- readr::parse_number(cs$GRAD_DEBT_MDN)
+cs$AGE_ENTRY <- readr::parse_number(cs$AGE_ENTRY)
+cs$FEMALE <- readr::parse_number(cs$FEMALE)
+cs$PCT_WHITE <- readr::parse_number(cs$PCT_WHITE)
+```
+```{r}
+str(cs)
+```
+
 4. How is average faculty salary associated the mean earnings of students ten years after initial enrollment? Create an appropriate plot and interpret the plot to justify your answer.
 
 5. Does the level of the institution seem to be associated with the mean earnings of students ten years after enrollment? Reproduce this plot in R to explore this relationship and interpret the plot:
