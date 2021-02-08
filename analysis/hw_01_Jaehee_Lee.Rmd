@@ -82,7 +82,8 @@ library(readr)
 library(tidyverse)
 library(ggplot2)
 library(ggthemes)
-library("viridis")           
+library("viridis")     
+library(RColorBrewer)
 ```
 1. Use a relative path and a readr function to load the data from data/college_score_200601.csv into a tibble.
 ```{r}
@@ -351,7 +352,7 @@ pop_life_fert_country %>%
   scale_y_log10()+
   scale_x_discrete(limit = c(1960, 1980, 2000)) +
   theme_clean() +
-      scale_color_viridis(discrete = TRUE, option = "D") 
+    scale_color_brewer(palette="Dark2")
 
 ```
 Interpretation: Since the x-axis is same for all regions which is years(from 1960 to 2017), so I have to consider only y-axis to find out the fastest growing regions. When the difference between the starting point of the y-value and the last point of the y-value is the biggest among 7 regions, then that region is the fastest growing region. But I have to carefully see the y-scale since I did y scale log.Therefore, the regions where the differences seems to be greatest here is "East Asia and the Pacific", indicating thatthe fastest growing region is East Asia & Pacific. 
