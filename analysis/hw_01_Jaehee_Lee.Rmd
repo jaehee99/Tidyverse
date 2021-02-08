@@ -335,3 +335,15 @@ ylab("Log of Total Population")+
 6. Make a bar plot of population vs region for the year 2010.  
   + Order the bars on the $y$-axis in **decreasing** order of population. 
   + Your final plot should look like this:
+```{r}
+pop_life_fert_country %>% 
+  drop_na() %>% 
+  filter(year == 2010) %>%  
+  select(Region, population) %>%  
+  ggplot(aes(x = reorder(Region, -population,sum), y = population/1000000)) + 
+  geom_bar(stat = "identity", fill = '#0000FF') +
+  coord_flip()+
+  theme_bw() +
+  labs(x = NULL, y = NULL, title = "2010 Population by Region")
+```
+
