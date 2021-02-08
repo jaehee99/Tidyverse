@@ -331,6 +331,7 @@ ylab("Log of Total Population")+
     scale_color_brewer(palette="Dark2") 
 
 ```
+Interpretation: Since the x-axis is same for all regions which is years(from 1960 to 2017), so I have to consider only y-axis to find out the fastest growing regions. When the difference between the starting point of the y-value and the last point of the y-value is the biggest among 7 regions, then that region is the fastest growing region. But I have to carefully see the y-scale since I did y scale log.Therefore, the regions where the differences seems to be greatest here is "East Asia and the Pacific", indicating thatthe fastest growing region is East Asia & Pacific. 
   
 6. Make a bar plot of population vs region for the year 2010.  
   + Order the bars on the $y$-axis in **decreasing** order of population. 
