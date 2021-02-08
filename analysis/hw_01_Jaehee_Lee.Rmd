@@ -271,6 +271,17 @@ country <- read_csv('country.csv')
 2. These data are messy. The observational units in `fert`, `life`, and `pop` are locations in space-time (e.g. Aruba in 2017). Recall tidy data should have one observational unit per row.  
   - Use dplyr 1.0 functions to tidy these three tibbles and save the updated data frames.
   - Use an approach where the tidying function also ensures the variable for `year` is a numeric.  
+```{r}
+# In order to tidy datasets like these messy, I have to "gather" those columns into a new pair of variables.
+population %>%  
+  gather(colnames(population)[3:61], key = "year", value = "population") -> population_tidy
+
+life_expectancy %>%  
+  gather(colnames(life_expectancy)[3:61], key = "year", value = "life_expectancy") -> life_expectancy_tidy
+
+fertility %>%  
+  gather(colnames(life_expectancy)[3:61], key = "year", value = "fertility")  -> fertility_tidy
+```
 
 3. Use dplyr functions to combine the three tibbles into one and save to a new tibble which includes the fertility rate, population, and life expectancy in each year as well as the region for each country.
 
