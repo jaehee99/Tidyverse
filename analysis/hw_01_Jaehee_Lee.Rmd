@@ -80,6 +80,12 @@ The data folder contains "college_score_200601.csv", a subset of the data in the
 library(readr)
 library(tidyverse)
 ```
+1. Use a relative path and a readr function to load the data from data/college_score_200601.csv into a tibble.
+```{r}
+cs <- read_csv("college_score_200601.csv")
+str(cs)
+```
+
 
 
 2. If you used the default settings for reading in the data, 11 variables are probably type character when they should be numeric. 
