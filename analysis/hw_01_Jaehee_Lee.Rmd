@@ -126,6 +126,17 @@ I can assume that higher mean earnings of students after 10 years met higher ave
 
 
 5. Does the level of the institution seem to be associated with the mean earnings of students ten years after enrollment? Reproduce this plot in R to explore this relationship and interpret the plot:
+```{r}
+ggplot(data = cs, aes(y = log(MN_EARN_WNE_P10), x = factor(ICLEVEL))) +
+  geom_boxplot(alpha=0.2)+
+  xlab("Level of Institution")+
+  ylab("Log of Mean Earnings")+
+  ggtitle("Mean Earnings 10 Years after Enrollment by Level of Institution")+
+  theme_bw()
+```
+Interpretation: 
+Level of institution (1 = 4-year, 2 = 2-year, 3 = less than 2-year)
+The median of institution level 1 is the highest among three of the institution levels. This indicates that students who graduated 4-year university have a highest median earnings in the future 10 years among three levels. Furthermore, level 2 institution have higher median than level 3. Not all, but most of the people who graduated 4-year institution have higher earnings than people who graduated 2-years institution. People who graduated 2-years institution have higher earning than level 3. 
 
 6. Plot the mean earnings 10 years after enrollment for level 1 institutions as the Y axis against PCT_WHITE and, in a second plot, against FEMALE.  
 - Use a log scale as appropriate.
