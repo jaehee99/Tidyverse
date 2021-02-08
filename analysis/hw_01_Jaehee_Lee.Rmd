@@ -90,10 +90,9 @@ str(cs)
 
 2. If you used the default settings for reading in the data, 11 variables are probably type character when they should be numeric. 
   + Which ones? 
+Answer: MN_EARN_WNE_P10, MD_EARN_WNE_P10, SAT_AVG, ADM_RATE, UGDS, COSTT4_A, AVGFACSAL, GRAD_DEBT_MDN,AGE_ENTRY,FEMALE, PCT_WHITE
   + Why were they read in as type character? 
-```{r}
-
-```
+Answer: They were read in as type character because the numbers are inside Quotation(" "). For example, 7 and "7" are different type. I think computer will think 7 is numeric, however "7" will be recognized as character, since 7 is inside the quotation.
 
 3. Use a readr function to fix these variables to be numeric and save the updated tibble.
     
