@@ -172,6 +172,16 @@ Plot 2) For level 1 institution, the most of the dots are densed around when FEM
 7. Create a scatter plot of the mean earnings 10 years after enrollment (Y) axis) compared to the median earnings 10 years after enrollment (X axis) using log scales for both.  
   + Add an abline. 
   + Interpret the plot and the relationship between the two variables.
+```{r}
+ggplot(data = cs, mapping = aes(y = MN_EARN_WNE_P10, x = MD_EARN_WNE_P10)) +
+  geom_point()+
+  scale_y_log10()+
+  scale_x_log10() +
+  labs(y ="MN_EARN_WNE_P10", x = "MD_EARN_WNE_P10")+
+  theme_classic()+
+    geom_abline(color = "blue", size = 2.0)
+```
+Interpretation: Above graph shows that MD_EARN_WNE_P10 and MN_EARN_WNE_P10 are linearly related. They are showing strong correlation since the dots are well aligned with the abline that is blue. This indicates that when the median earnings 10 year after enrollment increases, then mean earnings 10 years after enrollment increases. 
 
 8. Compute a ranking of level 1 universities based on the ratio of mean earnings 10 years after enrollment compared to median graduation debt.   
   + Identify the top 5 best (highest ROI should be #1 ) and the bottom 5 worst? 
