@@ -295,7 +295,19 @@ full_join(pop_life_fert, country, by = "Country Code") -> pop_life_fert_country
   + Facet by these years.
   + Your final plot should look like this (Each element of the formatting is graded):
   + **Interpret the plot in one sentence**.
-  
+```{r}
+pop_life_fert_country %>%  
+  drop_na() %>% 
+  filter(year == "1960"|year == "1970"|year == "1980"|year == "1990"|year == "2000"|year == "2010") %>%  
+  ggplot(aes(life_expectancy, fertility, color = Region))+
+  geom_point(aes(size = population))+
+  facet_wrap(. ~year)+ 
+  ggtitle("Changes by Region across Decades \nWorld Bank Data") +
+  ylab("Fertility Rate")+
+  xlab("Life Expectancy")+
+  scale_color_brewer(palette="Dark2")
+```
+
 5. Calculate the total population for each region for each year.  
   + Exclude 2018.  
   + Make a line plot of year versus total population, color-coding by region and using a log scale.
