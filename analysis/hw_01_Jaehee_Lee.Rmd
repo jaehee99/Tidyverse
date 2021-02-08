@@ -79,14 +79,14 @@ The data folder contains "college_score_200601.csv", a subset of the data in the
 ```{r}
 library(readr)
 library(tidyverse)
+library(ggplot2)
+library(ggthemes)
 ```
 1. Use a relative path and a readr function to load the data from data/college_score_200601.csv into a tibble.
 ```{r}
 cs <- read_csv("college_score_200601.csv")
 str(cs)
 ```
-
-
 
 2. If you used the default settings for reading in the data, 11 variables are probably type character when they should be numeric. 
   + Which ones? 
@@ -113,6 +113,17 @@ str(cs)
 ```
 
 4. How is average faculty salary associated the mean earnings of students ten years after initial enrollment? Create an appropriate plot and interpret the plot to justify your answer.
+```{r}
+ggplot(data = cs, mapping = aes(y = AVGFACSAL, x = MN_EARN_WNE_P10)) +
+  geom_point()+
+  labs(y ="AVGFACSAL", x = "MN_EARN_WNE_P10")+
+  theme_bw()+
+  theme_classic()
+```
+Interpretation: 
+MN_EARN_WNE_P10 and AVGFASCAL are positively correlated. For example, when MN_EARN_WNE_P10 increases then, AVGFASAL increases as well. We can detect some outliers however, the two variables are very strongly correlated. 
+I can assume that higher mean earnings of students after 10 years met higher average faculty salary.
+
 
 5. Does the level of the institution seem to be associated with the mean earnings of students ten years after enrollment? Reproduce this plot in R to explore this relationship and interpret the plot:
 
