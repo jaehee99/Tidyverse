@@ -261,6 +261,12 @@ The World Bank provides loans to countries with the goal of reducing poverty. Th
   + Total population is based on the de facto definition of population, which counts all residents regardless of legal status or citizenship. The values shown are midyear estimates.
 
 1. Use relative paths and a readr function to load these files into four tibbles.  
+```{r}
+life_expectancy <- read_csv("life_exp.csv")
+fertility <- read_csv("fertility.csv")
+population <- read_csv('population.csv')
+country <- read_csv('country.csv')
+```
 
 2. These data are messy. The observational units in `fert`, `life`, and `pop` are locations in space-time (e.g. Aruba in 2017). Recall tidy data should have one observational unit per row.  
   - Use dplyr 1.0 functions to tidy these three tibbles and save the updated data frames.
