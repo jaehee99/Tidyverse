@@ -118,13 +118,13 @@ str(cs)
 ```{r}
 ggplot(data = cs, mapping = aes(y = AVGFACSAL, x = MN_EARN_WNE_P10)) +
   geom_point()+
+  geom_smooth() +
   labs(y ="AVGFACSAL", x = "MN_EARN_WNE_P10")+
-  theme_bw()+
   theme_classic()
 ```
 Interpretation: 
-MN_EARN_WNE_P10 and AVGFASCAL are positively correlated. For example, when MN_EARN_WNE_P10 increases then, AVGFASAL increases as well. We can detect some outliers however, the two variables are very strongly correlated. 
-I can assume that higher mean earnings of students after 10 years met higher average faculty salary.
+MN_EARN_WNE_P10 and AVGFASCAL are strongly and positively correlated until when MN_EARN_WNE_P10 is 125000. And most of the points are densed and aligned well with the loess_line before when MN_EARN_WNE_P10 is 125000.  This indicates that when MN_EARN_WNE_P10 increases, then AVGFASAL increases as well until MN_EARN_WNE_P10 is 125000. However, the line starts to decrease because of the 'outliers'. Overall, I can say that the higher the mean earnings of students, the average faculty salary was very high. 
+
 
 
 5. Does the level of the institution seem to be associated with the mean earnings of students ten years after enrollment? Reproduce this plot in R to explore this relationship and interpret the plot:
@@ -138,7 +138,9 @@ ggplot(data = cs, aes(y = log(MN_EARN_WNE_P10), x = factor(ICLEVEL))) +
 ```
 Interpretation: 
 Level of institution (1 = 4-year, 2 = 2-year, 3 = less than 2-year)
-The median of institution level 1 is the highest among three of the institution levels. This indicates that students who graduated 4-year university have a highest median earnings in the future 10 years among three levels. Furthermore, level 2 institution have higher median than level 3. Not all, but most of the people who graduated 4-year institution have higher earnings than people who graduated 2-years institution. People who graduated 2-years institution have higher earning than level 3. 
+
+The median of institution level 1 is the highest among three of the institution levels. This indicates that students who graduated 4-year university have a highest median earnings in the future 10 years among three levels. Furthermore, level 2 institution have higher median than level 3.
+Therefore, not all, but most of the people who graduated 4-year institution have higher earnings than people who graduated 2-years institution or less than 2-year. Also, students who graduated 2-years institution have higher earning than less than 2-year institution. 
 
 6. Plot the mean earnings 10 years after enrollment for level 1 institutions as the Y axis against PCT_WHITE and, in a second plot, against FEMALE.  
 - Use a log scale as appropriate.
@@ -183,7 +185,7 @@ ggplot(data = cs, mapping = aes(y = MN_EARN_WNE_P10, x = MD_EARN_WNE_P10)) +
   theme_classic()+
     geom_abline(color = "blue", size = 2.0)
 ```
-Interpretation: Above graph shows that MD_EARN_WNE_P10 and MN_EARN_WNE_P10 are linearly related. They are showing strong correlation since the dots are well aligned with the abline that is blue. This indicates that when the median earnings 10 year after enrollment increases, then mean earnings 10 years after enrollment increases. 
+Interpretation: Above graph shows that MD_EARN_WNE_P10 and MN_EARN_WNE_P10 are strong, and positively linearly related. They are showing strong correlation since the dots are well aligned with the abline that is blue. This indicates that when the median earnings 10 year after enrollment is high, then mean earnings 10 years after enrollment is also high. 
 
 8. Compute a ranking of level 1 universities based on the ratio of mean earnings 10 years after enrollment compared to median graduation debt.   
   + Identify the top 5 best (highest ROI should be #1 ) and the bottom 5 worst? 
@@ -198,21 +200,25 @@ cs_1 %>%
   arrange(desc(RATIO)) %>% 
   top_n(5) %>%  
   select(INSTNM, RATIO) -> ratio_top_5
+ratio_top_5
 # Bottom 5 worst
 cs_1 %>% 
   arrange(RATIO) %>% 
   head(5) %>%  
     select(INSTNM, RATIO) -> ration_bottom_5
+ration_bottom_5
 # What is American University's ROI? 
 cs_1 %>% 
   filter(INSTNM == "American University") %>%  
   select(RATIO) -> AU_ROI
+AU_ROI
 # What is American University's Rank? 
 cs_1 %>% 
   arrange(desc(RATIO)) %>%
   mutate(rank = row_number()) %>%  
   filter(INSTNM == "American University") %>% 
   select("rank") -> AU_RANK
+AU_RANK
 ```
 
 - Extra Credit: 
@@ -222,8 +228,11 @@ cs_1 %>%
 ggplot(cs_1, aes(x=RATIO)) +
   geom_histogram(binwidth = 0.26)+
     theme_bw()+
-  ggtitle("Ratio of Mean Earnings 10 Years after Enrollment to Median Debt at Graduation")+
-    geom_vline(aes(xintercept = 2.907077, color = "dark red")) 
+  ggtitle("Ratio of Mean Earnings 10 Years after Enrollment \n to Median Debt at Graduation \n (data for 2293 Level 1 Institutions as of 06/01/2020")+
+    labs(y ="count", x = "ROI")+
+    geom_vline(aes(xintercept = 2.907077), color = "red", linetype = "dashed")+ # AU_ROI is 2.907077
+    geom_text(aes(x=2, label="AU", y=20), color = "red")
+
 
 # What is AU's new ranking and ROI if the median earnings are used?
 cs_1$RATIO_MD <- cs_1$MD_EARN_WNE_P10/cs_1$GRAD_DEBT_MDN
@@ -231,12 +240,14 @@ cs_1$RATIO_MD <- cs_1$MD_EARN_WNE_P10/cs_1$GRAD_DEBT_MDN
 cs_1 %>% 
   filter(INSTNM == "American University") %>%  
   select(RATIO_MD) -> AU_ROI_MD
+AU_ROI_MD
 # What is American University's Rank_MD? 
 cs_1 %>% 
   arrange(desc(RATIO_MD)) %>%
   mutate(rank = row_number()) %>%  
   filter(INSTNM == "American University") %>% 
   select("rank") -> AU_RANK_MD
+AU_RANK_MD
 ```
 
 # World Bank Data
@@ -283,6 +294,14 @@ life_expectancy %>%
 
 fertility %>%  
   gather(colnames(life_expectancy)[3:61], key = "year", value = "fertility")  -> fertility_tidy
+
+# correct data type
+population_tidy$year <- readr::parse_number(population_tidy$year)
+
+life_expectancy_tidy$year <- readr::parse_number(life_expectancy_tidy$year)
+
+fertility_tidy$year <- readr::parse_number(fertility_tidy$year)
+
 ```
 
 3. Use dplyr functions to combine the three tibbles into one and save to a new tibble which includes the fertility rate, population, and life expectancy in each year as well as the region for each country.
@@ -310,7 +329,8 @@ pop_life_fert_country %>%
   scale_color_viridis(discrete = TRUE, option = "D") +
  scale_fill_viridis(discrete = TRUE) 
 ```
-Interpretation: Throughout the years 1960, 1970, ...2010, in "Sub-Saharan Africa", Life Expectancy is very low and fertility rate is very high, in contrast, areas in "East Asia & Pacific" and "Europe & Central Asia", "North America" are having Life Expectancy to be very high and Fertility Rate is very low, furthermore, South Asia is in between the previous two analysis. 
+Interpretation: Throughout the years 1960, 1970, ...2010, in "Sub-Saharan Africa", Life Expectancy is very low and fertility rate is very high, in contrast, areas in "East Asia & Pacific" and "Europe & Central Asia", "North America" are having Life Expectancy to be very high and Fertility Rate is very low. 
+Furthermore, "South Asia", "Latin America& Carribbean", "Middle East& North Africa" are in between the previous two analysis. 
 
 5. Calculate the total population for each region for each year.  
   + Exclude 2018.  
@@ -322,17 +342,16 @@ pop_life_fert_country %>%
   filter(year != 2018)  %>%  
   group_by(year, Region) %>%  
   drop_na() %>% 
-  summarize(total = sum(population)) -> new_data
-
-ggplot(data = new_data, aes(x=year,y=total, group = Region))+
-geom_line(aes(colour=Region))+ 
-  theme_classic() +
-ggtitle("Population by Region") +
-xlab("Years")+
-ylab("Log of Total Population")+
+  summarize(total = sum(population)) %>%  
+  ggplot(aes(x=year,y=total, group = Region))+
+  geom_line(aes(colour=Region)) +
+  ggtitle("Population by Region") +
+  xlab("Years")+
+  ylab("Log of Total Population")+
   scale_y_log10()+
-  scale_x_discrete(breaks = c("1960","1980","2000"))+
-    scale_color_brewer(palette="Dark2") 
+  scale_x_discrete(limit = c(1960, 1980, 2000)) +
+  theme_clean() +
+      scale_color_viridis(discrete = TRUE, option = "D") 
 
 ```
 Interpretation: Since the x-axis is same for all regions which is years(from 1960 to 2017), so I have to consider only y-axis to find out the fastest growing regions. When the difference between the starting point of the y-value and the last point of the y-value is the biggest among 7 regions, then that region is the fastest growing region. But I have to carefully see the y-scale since I did y scale log.Therefore, the regions where the differences seems to be greatest here is "East Asia and the Pacific", indicating thatthe fastest growing region is East Asia & Pacific. 
@@ -349,6 +368,6 @@ pop_life_fert_country %>%
   geom_bar(stat = "identity", fill = '#0000FF') +
   coord_flip()+
   theme_bw() +
-  labs(x = NULL, y = NULL, title = "2010 Population by Region")
+  labs(x = NULL, y = "Total Population(in Millions)", title = "2010 Population by Region")
 ```
 
