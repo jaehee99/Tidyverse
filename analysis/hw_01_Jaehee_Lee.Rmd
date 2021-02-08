@@ -310,6 +310,7 @@ pop_life_fert_country %>%
   scale_color_viridis(discrete = TRUE, option = "D") +
  scale_fill_viridis(discrete = TRUE) 
 ```
+Interpretation: Throughout the years 1960, 1970, ...2010, in "Sub-Saharan Africa", Life Expectancy is very low and fertility rate is very high, in contrast, areas in "East Asia & Pacific" and "Europe & Central Asia", "North America" are having Life Expectancy to be very high and Fertility Rate is very low, furthermore, South Asia is in between the previous two analysis. 
 
 5. Calculate the total population for each region for each year.  
   + Exclude 2018.  
