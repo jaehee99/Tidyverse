@@ -77,10 +77,12 @@ The data folder contains "college_score_200601.csv", a subset of the data in the
 - `PCT_WHITE`: Percent of the population from students' zip codes that is White, via Census data
 # load packages
 ```{r}
+install.packages("viridis")
 library(readr)
 library(tidyverse)
 library(ggplot2)
 library(ggthemes)
+library("viridis")           
 ```
 1. Use a relative path and a readr function to load the data from data/college_score_200601.csv into a tibble.
 ```{r}
@@ -305,7 +307,8 @@ pop_life_fert_country %>%
   ggtitle("Changes by Region across Decades \nWorld Bank Data") +
   ylab("Fertility Rate")+
   xlab("Life Expectancy")+
-  scale_color_brewer(palette="Dark2")
+  scale_color_viridis(discrete = TRUE, option = "D") +
+ scale_fill_viridis(discrete = TRUE) 
 ```
 
 5. Calculate the total population for each region for each year.  
