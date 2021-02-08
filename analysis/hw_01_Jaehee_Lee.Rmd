@@ -313,7 +313,25 @@ pop_life_fert_country %>%
   + Make a line plot of year versus total population, color-coding by region and using a log scale.
   + Your final plot should look like this:
   + **Interpret the plot in one sentence to identify the fastest growing regions**.
-   
+```{r}
+pop_life_fert_country %>%  
+  filter(year != 2018)  %>%  
+  group_by(year, Region) %>%  
+  drop_na() %>% 
+  summarize(total = sum(population)) -> new_data
+
+ggplot(data = new_data, aes(x=year,y=total, group = Region))+
+geom_line(aes(colour=Region))+ 
+  theme_classic() +
+ggtitle("Population by Region") +
+xlab("Years")+
+ylab("Log of Total Population")+
+  scale_y_log10()+
+  scale_x_discrete(breaks = c("1960","1980","2000"))+
+    scale_color_brewer(palette="Dark2") 
+
+```
+  
 6. Make a bar plot of population vs region for the year 2010.  
   + Order the bars on the $y$-axis in **decreasing** order of population. 
   + Your final plot should look like this:
