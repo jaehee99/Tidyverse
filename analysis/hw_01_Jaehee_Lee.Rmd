@@ -75,12 +75,20 @@ The data folder contains "college_score_200601.csv", a subset of the data in the
 - `MD_EARN_WNE_P10`: Median earnings of students working and not enrolled 10 years after entry.
 - `FEMALE`: Share of female students
 - `PCT_WHITE`: Percent of the population from students' zip codes that is White, via Census data
+# load packages
+```{r}
+library(readr)
+library(tidyverse)
+```
 
 
 2. If you used the default settings for reading in the data, 11 variables are probably type character when they should be numeric. 
   + Which ones? 
   + Why were they read in as type character? 
- 
+```{r}
+
+```
+
 3. Use a readr function to fix these variables to be numeric and save the updated tibble.
     
 4. How is average faculty salary associated the mean earnings of students ten years after initial enrollment? Create an appropriate plot and interpret the plot to justify your answer.
