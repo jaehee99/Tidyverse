@@ -348,7 +348,7 @@ pop_life_fert_country %>%
   geom_line(aes(colour=Region)) +
   ggtitle("Population by Region") +
   xlab("Years")+
-  ylab("Log of Total Population")+
+  ylab("Total Population (Log scale)")+
   scale_y_log10()+
   scale_x_discrete(limit = c(1960, 1980, 2000)) +
   theme_clean() +
