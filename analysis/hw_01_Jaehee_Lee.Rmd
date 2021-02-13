@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 # Instructions {-}
 
+
 Admin elements:  
 1. Upload a photo (headshot) of yourself into your canvas profile  
 2. Review the Syllabus and the [academic integrity code](<https://www.american.edu/policies/students/upload/academic-integrity-code-2020.pdf>).  
