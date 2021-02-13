@@ -77,7 +77,6 @@ The data folder contains "college_score_200601.csv", a subset of the data in the
 - `PCT_WHITE`: Percent of the population from students' zip codes that is White, via Census data
 # load packages
 ```{r}
-install.packages("viridis")
 library(readr)
 library(tidyverse)
 library(ggplot2)
