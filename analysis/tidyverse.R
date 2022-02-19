@@ -1,20 +1,3 @@
-# College Scorecard
-# "college_score_200601.csv", a subset of the data in the [College Scorecard](https://collegescorecard.ed.gov/data/) database as of June 1, 2020. These data contain information on colleges in the United States. The variables include:
-- `UNITID` and `OPEID`: Identifiers for the colleges.
-- `INSTNM`: Institution name
-- `ADM_RATE`: The Admission Rate.
-- `SAT_AVE`: Average SAT equivalent score of students admitted.
-- `UGDS`: Enrollment of undergraduate certificate/degree-seeking students
-- `COSTT4_A`: Average cost of attendance (academic year institutions)
-- `AVGFACSAL`: Average faculty salary
-- `GRAD_DEBT_MDN`: The median debt for students who have completed
-- `AGE_ENTRY`: Average age of entry
-- `ICLEVEL`: Level of institution (1 = 4-year, 2 = 2-year, 3 = less than 2-year).
-- `MN_EARN_WNE_P10`: Mean earnings of students working and not enrolled 10 years after entry.
-- `MD_EARN_WNE_P10`: Median earnings of students working and not enrolled 10 years after entry.
-- `FEMALE`: Share of female students
-- `PCT_WHITE`: Percent of the population from students' zip codes that is White, via Census data
-
 # load packages 
 library(tidyverse)
 library(ggthemes)
@@ -46,13 +29,31 @@ cs$PCT_WHITE <- readr::parse_number(cs$PCT_WHITE)
 # check 
 str(cs)
 
-
-4. How is average faculty salary associated the mean earnings of students ten years after initial enrollment? Create an appropriate plot and interpret the plot to justify your answer.
-```{r}
+# Create a plot that shows the relationship between average faculty salary with the mean earnings of students ten years after initial enrollment. 
 ggplot(data = cs, mapping = aes(y = AVGFACSAL, x = MN_EARN_WNE_P10)) +
   geom_point()+
   geom_smooth() +
   labs(y ="AVGFACSAL", x = "MN_EARN_WNE_P10")+
   theme_classic()
-```
+
+# Interpretation: 
+# MN_EARN_WNE_P10 and AVGFASCAL are strongly and positively correlated until when MN_EARN_WNE_P10 is 125000. 
+# Most of the points are densed and aligned well with the loess_line before when MN_EARN_WNE_P10 is 125000. 
+# This indicates that when MN_EARN_WNE_P10 increases, then AVGFASAL increases as well until MN_EARN_WNE_P10 is 125000. 
+# However, the line starts to decrease because of the 'outliers'. 
+# Overall, I can say that the higher the mean earnings of students, the average faculty salary was very high. 
+
+# Create a box plot that shows the level of the institution to be associated with the mean earnings of students ten years after enrollment 
+ggplot(data = cs, aes(y = log(MN_EARN_WNE_P10), x = factor(ICLEVEL))) +
+  geom_boxplot(alpha=0.2)+
+  xlab("Level of Institution")+
+  ylab("Log of Mean Earnings")+
+  ggtitle("Mean Earnings 10 Years after Enrollment by Level of Institution")+
+  theme_bw()
+# Interpretation: 
+# Level of institution (1 = 4-year, 2 = 2-year, 3 = less than 2-year)
+# The median of institution level 1 is the highest among three of the institution levels. This indicates that students who graduated 4-year university have a highest median earnings in the future 10 years among three levels. 
+# Furthermore, level 2 institution have higher median than level 3. Therefore, not all, but most of the people who graduated 4-year institution have higher earnings than people who graduated 2-years institution or less than 2-year. 
+# Also, students who graduated 2-years institution have higher earning than less than 2-year institution. 
+
 
