@@ -2,8 +2,8 @@ hw_01-jaehee99 created by GitHub Classroom
 
 # Tidyverse
 
-## College Scorecard
-# "college_score_200601.csv", a subset of the data in the [College Scorecard](https://collegescorecard.ed.gov/data/) database as of June 1, 2020. These data contain information on colleges in the United States. The variables include:
+###### College Scorecard
+###### "college_score_200601.csv", a subset of the data in the [College Scorecard](https://collegescorecard.ed.gov/data/) database as of June 1, 2020. These data contain information on colleges in the United States. The variables include:
 - `UNITID` and `OPEID`: Identifiers for the colleges.
 - `INSTNM`: Institution name
 - `ADM_RATE`: The Admission Rate.
