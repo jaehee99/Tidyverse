@@ -1,5 +1,3 @@
-hw_01-jaehee99 created by GitHub Classroom
-
 # Tidyverse
 
 ## College Scorecard dataset
